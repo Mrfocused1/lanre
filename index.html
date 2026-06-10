@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talk to Lanre — AI-Powered Constituent Engagement</title>
+<meta name="description" content="Talk to Lanre is an AI voice agent trained on Lanre Farinloye's manifesto. Speak up. Be heard. See real change.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#0B6B3A; --forest:#14532D; --emerald:#16A34A; --deep:#052E16;
+  --lgreen:#F1F8F4; --white:#FFFFFF; --grey:#F8FAFC; --border:#E2E8F0;
+  --ink:#0F172A; --ink2:#475569; --gold:#D4AF37;
+  --cta:linear-gradient(135deg,#0B6B3A 0%,#14532D 100%);
+  --darksec:linear-gradient(135deg,#052E16 0%,#14532D 50%,#052E16 100%);
+  --shadow-card:0 10px 30px rgba(15,23,42,.06);
+  --shadow-cta:0 20px 40px rgba(11,107,58,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased;line-height:1.7;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.label{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green)}
+
+/* ── NAV ──────────────────────────────── */
+nav{height:88px;position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(226,232,240,.7)}
+.nav-in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:11px}
+.logo-mark{width:46px;height:46px;border-radius:13px;background:var(--cta);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 16px rgba(11,107,58,.28)}
+.logo-txt{font-weight:600;font-size:15px;line-height:1.05;color:var(--ink2)}
+.logo-txt b{display:block;font-size:21px;font-weight:800;color:var(--ink);letter-spacing:-.5px}
+.menu{display:flex;gap:34px;align-items:center}
+.menu a{font-size:16px;font-weight:600;color:var(--ink2);transition:color .2s}
+.menu a:hover,.menu a.active{color:var(--green)}
+.menu a.active{position:relative}
+.menu a.active::after{content:"";position:absolute;left:0;right:0;bottom:-26px;height:3px;border-radius:3px;background:var(--green)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger span{width:26px;height:2.5px;background:var(--ink);border-radius:3px;transition:.3s}
+
+/* ── BUTTONS ──────────────────────────── */
+.btn-call{display:inline-flex;align-items:center;gap:11px;height:54px;padding:0 26px;border-radius:15px;background:var(--cta);color:#fff;font-weight:700;font-size:17px;border:none;cursor:pointer;box-shadow:0 12px 26px rgba(11,107,58,.28);transition:transform .3s,box-shadow .3s}
+.btn-call:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(11,107,58,.38)}
+.btn-call .ph{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
+.btn-sec{display:inline-flex;align-items:center;gap:10px;height:54px;padding:0 26px;border-radius:15px;border:1px solid var(--border);background:#fff;color:var(--ink);font-weight:700;font-size:17px;cursor:pointer;transition:.25s}
+.btn-sec:hover{border-color:var(--green);color:var(--green)}
+
+/* ── HERO ─────────────────────────────── */
+.hero{position:relative;padding:54px 0 96px}
+.hero-grid{display:grid;grid-template-columns:45fr 55fr;gap:40px;align-items:center;min-height:760px}
+.badge{display:inline-flex;align-items:center;gap:9px;background:var(--lgreen);border:1px solid #d6eade;padding:9px 16px;border-radius:50px;font-size:13px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--forest);margin-bottom:26px}
+.badge .dot{width:9px;height:9px;border-radius:50%;background:var(--emerald)}
+h1{font-size:76px;font-weight:800;line-height:.95;letter-spacing:-3px;color:var(--ink)}
+h1 .g{color:var(--green)}
+.subhead{font-size:30px;font-weight:800;letter-spacing:-1px;margin-top:18px;color:var(--ink)}
+.subhead .g{color:var(--green)}
+.lead{font-size:18px;color:var(--ink2);margin-top:22px;max-width:480px}
+.lead b{color:var(--ink);font-weight:700}
+.ai-card{margin-top:26px;background:var(--grey);border:1px solid var(--border);border-radius:22px;padding:22px 24px;display:flex;gap:16px;max-width:520px}
+.ai-card .ic{width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ai-card h4{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.ai-card p{font-size:14.5px;color:var(--ink2);line-height:1.55}
+
+/* big hero call CTA */
+.hero-cta{margin-top:26px;width:100%;max-width:560px;height:96px;border-radius:22px;background:var(--cta);box-shadow:var(--shadow-cta);border:none;cursor:pointer;display:flex;align-items:center;gap:20px;padding:0 26px;color:#fff;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;animation:float 4s ease-in-out infinite}
+.hero-cta:hover{transform:translateY(-3px);box-shadow:0 28px 50px rgba(11,107,58,.36)}
+.hero-cta .phone{width:58px;height:58px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.3s}
+.hero-cta .phone svg{width:27px;height:27px}
+.hero-cta .ct{text-align:left;flex:1}
+.hero-cta .ct .t{display:block;font-size:25px;font-weight:800;letter-spacing:-.5px;line-height:1.15}
+.hero-cta .ct .s{display:block;font-size:14.5px;opacity:.85;font-weight:500;margin-top:2px}
+.hero-cta .wf{display:flex;align-items:center;gap:3px;height:38px;opacity:.8}
+.hero-cta .wf i{width:3px;border-radius:3px;background:#fff;animation:wave 1.1s ease-in-out infinite}
+.privacy{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:14px;color:var(--ink2);font-weight:600}
+.privacy svg{width:16px;height:16px;color:var(--green)}
+
+/* hero right */
+.hero-right{position:relative;display:flex;justify-content:center;align-items:center;min-height:720px}
+.halo{position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(11,107,58,.13) 0%,rgba(11,107,58,.04) 60%,transparent 100%);top:50%;left:50%;transform:translate(-50%,-54%)}
+.portrait{position:relative;z-index:2;height:700px;max-width:100%;object-fit:contain;filter:drop-shadow(0 30px 60px rgba(15,23,42,.18))}
+.bg-wf{position:absolute;z-index:1;top:50%;left:0;transform:translateY(-10%);display:flex;align-items:center;gap:5px;height:200px;opacity:.5}
+.bg-wf i{width:4px;border-radius:4px;background:linear-gradient(var(--emerald),var(--green));animation:wave 1.4s ease-in-out infinite}
+.sig{position:absolute;z-index:3;right:-4px;top:14%;max-width:230px;text-align:left}
+.sig p{font-family:'Caveat',cursive;font-size:25px;line-height:1.25;color:var(--forest)}
+.sig .name{font-family:'Caveat',cursive;font-size:30px;font-weight:700;color:var(--green);margin-top:10px;border-top:1px solid #cfe3d6;padding-top:6px}
+
+/* ── VOICE BUTTON STATES (driven by JS) ── */
+.hero-cta.connecting .phone svg{animation:spin 1s linear infinite}
+.hero-cta.live{background:linear-gradient(135deg,#052E16,#14532D);box-shadow:0 0 0 3px var(--emerald),0 20px 40px rgba(5,46,22,.4)}
+.hero-cta.speaking{background:linear-gradient(135deg,#0B6B3A,#16A34A);box-shadow:0 0 0 3px #fff,0 20px 40px rgba(11,107,58,.4)}
+.hero-cta.error{background:linear-gradient(135deg,#7f1d1d,#b91c1c);box-shadow:0 14px 30px rgba(185,28,28,.4)}
+
+/* ── SECTION: features + stats card ────── */
+.section{padding:60px 0}
+section[id],[id]{scroll-margin-top:108px}
+.h2{font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1.1;text-align:center}
+.h2 .g{color:var(--green)}
+.panel{background:var(--grey);border:1px solid var(--border);border-radius:36px;padding:56px 48px;margin-top:8px}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:44px}
+.feat{padding:0 22px;position:relative}
+.feat:not(:last-child)::after{content:"";position:absolute;right:0;top:6px;bottom:6px;width:1px;background:var(--border)}
+.feat .fic{width:62px;height:62px;border-radius:50%;background:var(--lgreen);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.feat h3{font-size:19px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.feat p{font-size:15px;color:var(--ink2);line-height:1.55}
+.divider{height:1px;background:var(--border);margin:48px 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.stat{display:flex;align-items:center;gap:16px;justify-content:center}
+.stat .num{font-size:32px;font-weight:800;letter-spacing:-1px;color:var(--ink);line-height:1}
+.stat .cap{font-size:15px;color:var(--ink2);font-weight:500}
+
+/* dark features card */
+.darkpanel{background:var(--darksec);border:1px solid rgba(255,255,255,.08);border-radius:36px;padding:54px 48px;color:#fff;text-align:center;box-shadow:0 24px 60px rgba(5,46,22,.28)}
+.darkpanel h2{font-size:34px;font-weight:800;letter-spacing:-1px;line-height:1.18}
+.darkpanel h2 .g{color:#5fd699}
+.darkpanel .sub{font-size:18px;color:#bfe0cd;margin-top:14px}
+.darkpanel .features{margin-top:44px}
+.darkpanel .feat::after{background:rgba(255,255,255,.12)}
+.darkpanel .feat .fic{background:transparent;width:auto;height:auto;margin-bottom:16px}
+.darkpanel .feat h3{color:#fff}
+.darkpanel .feat p{color:#bfe0cd}
+.closing{text-align:center;margin-top:40px;font-size:16px;color:var(--ink2)}
+.closing a{color:var(--green);font-weight:700}
+
+/* hidden icons (per design) — logo mark & AI-card sparkle hidden everywhere; badge dot hidden on desktop only */
+nav .logo-mark{display:none}
+.ai-card .ic{display:none}
+@media(min-width:901px){.badge .dot{display:none}}
+
+/* ── HOW IT WORKS ──────────────────────── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px}
+.step{background:#fff;border:1px solid var(--border);border-radius:28px;padding:34px;box-shadow:var(--shadow-card);transition:transform .3s}
+.step:hover{transform:translateY(-4px)}
+.step .n{width:44px;height:44px;border-radius:50%;background:var(--cta);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;margin-bottom:18px}
+.step h3{font-size:22px;font-weight:800;margin-bottom:10px}
+.step p{font-size:16px;color:var(--ink2)}
+
+/* ── MANIFESTO (dark) ──────────────────── */
+.manifesto{background:var(--darksec);border-radius:40px;padding:64px;color:#fff;position:relative;overflow:hidden}
+.manifesto .label{color:#9be8bf}
+.manifesto h2{font-size:40px;font-weight:800;letter-spacing:-1px;margin:14px 0 16px;max-width:620px}
+.manifesto p{font-size:18px;color:#cde7d6;max-width:600px;margin-bottom:18px}
+.manifesto .pills{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 34px}
+.manifesto .pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:10px 18px;border-radius:50px;font-size:14.5px;font-weight:600}
+.btn-light{display:inline-flex;align-items:center;gap:10px;height:60px;padding:0 30px;border-radius:18px;background:#fff;color:var(--forest);font-weight:800;font-size:18px;transition:.25s}
+.btn-light:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(0,0,0,.3)}
+
+/* ── FAQ ───────────────────────────────── */
+.faq{max-width:820px;margin:44px auto 0}
+.q{background:#fff;border:1px solid var(--border);border-radius:20px;margin-bottom:14px;overflow:hidden;transition:box-shadow .25s}
+.q.open{box-shadow:var(--shadow-card)}
+.q button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:24px 28px;background:none;border:none;cursor:pointer;text-align:left;font-size:18px;font-weight:700;color:var(--ink)}
+.q .plus{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--lgreen);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600;transition:transform .3s}
+.q.open .plus{transform:rotate(45deg)}
+.q .a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;padding:0 28px}
+.q.open .a{max-height:280px;padding:0 28px 26px}
+.q .a p{font-size:16px;color:var(--ink2)}
+
+/* ── FOOTER ────────────────────────────── */
+footer{background:var(--ink);color:#cbd5e1;padding:56px 0 34px;margin-top:80px}
+.foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start}
+.foot-top .logo-txt,.foot-top .logo-txt b{color:#fff}
+.foot-cta{text-align:right}
+.foot-links{display:flex;gap:30px;flex-wrap:wrap;margin-top:30px;font-size:15px}
+.foot-links a:hover{color:#fff}
+.disclaimer{margin-top:30px;padding-top:24px;border-top:1px solid #1e293b;font-size:13.5px;color:#94a3b8;line-height:1.7;max-width:820px}
+.disclaimer b{color:#cbd5e1}
+
+/* ── ANIMATIONS ───────────────────────── */
+@keyframes wave{0%,100%{height:30%}50%{height:100%}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.js .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1!important;transform:none!important}}
+
+/* ── RESPONSIVE ───────────────────────── */
+@media(max-width:1080px){h1{font-size:62px}.portrait{height:600px}.halo{width:480px;height:480px}}
+@media(max-width:900px){
+  .menu{display:none}.hamburger{display:flex}
+  .menu a.active::after{display:none}  /* drop desktop underline in the vertical mobile menu */
+  .nav-in .btn-call{display:none}      /* mobile: hide nav call button (kept on desktop) */
+
+  /* HERO: text column full-width, portrait bleeds off the top-right */
+  .hero{padding:14px 0 34px}
+  .hero-grid{display:block;position:relative}
+  .hero-left{position:relative;z-index:2}
+  .hero-right{position:absolute;top:-4px;right:-22px;width:55%;min-height:0;display:block;z-index:1;pointer-events:none}
+  .halo{width:280px;height:280px;top:36%;left:52%}
+  .portrait{width:100%;height:auto;max-width:none;filter:drop-shadow(0 16px 30px rgba(15,23,42,.16))}
+  .bg-wf{display:none}.sig{display:none}
+  .badge{margin-bottom:16px}
+  h1{font-size:46px;letter-spacing:-2px;padding-right:48%}
+  .subhead{font-size:21px;padding-right:42%}
+  .lead{font-size:15.5px;padding-right:38%;max-width:none}
+  .ai-card{max-width:none}.hero-cta{max-width:none}
+
+  /* dark features card — keep 4 across, compact */
+  .darkpanel{padding:32px 16px}
+  .darkpanel h2{font-size:23px}.darkpanel .sub{font-size:14.5px}
+  .darkpanel .features{margin-top:26px}
+  .features{grid-template-columns:repeat(4,1fr);gap:0;margin-top:28px}
+  .feat{padding:0 7px}
+  .feat .fic{width:auto;height:auto;margin-bottom:10px}
+  .feat .fic svg{width:30px;height:30px}
+  .feat h3{font-size:13px}.feat p{font-size:10.5px;line-height:1.4}
+
+  /* stats — stacked icon/number/caption, 4 across */
+  .panel{padding:30px 14px}.h2{font-size:26px}
+  .stats{grid-template-columns:repeat(4,1fr);gap:4px}
+  .stat{flex-direction:column;gap:7px;text-align:center}
+  .stat .num{font-size:19px}.stat .cap{font-size:11px}
+
+  .steps{grid-template-columns:1fr}
+  .manifesto{padding:40px 24px}.manifesto h2{font-size:30px}
+  .wrap{padding:0 18px}
+  .foot-top{flex-direction:column}.foot-cta{text-align:left}
+}
+@media(max-width:560px){
+  h1{font-size:39px;padding-right:46%}.subhead{font-size:18px;padding-right:40%}
+  .hero-cta{height:84px}.hero-cta .ct .t{font-size:21px}
+  .feat h3{font-size:12px}.feat p{font-size:9.5px}
+  .stat .num{font-size:17px}.stat .cap{font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="wrap nav-in">
+    <a href="#" class="logo">
+      <span class="logo-mark">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 13c0-4.5 3.8-8 9-8s9 3.5 9 8c0 2.3-1 4.2-2.7 5.6L19 22l-4.2-1.7c-.9.2-1.8.3-2.8.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 12v0M7 10v4M10 8v8M13 9v6M16 11v2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="logo-txt">Talk to<b>Lanre</b></span>
+    </a>
+    <div class="menu">
+      <a href="#" class="active">Home</a>
+      <a href="#features">About Lanre</a>
+      <a href="#manifesto">Manifesto</a>
+      <a href="#how">How It Works</a>
+      <a href="#stats">Updates</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <button class="btn-call" onclick="voiceToggle()">
+      <span class="ph"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6a1 1 0 0 0-1 .2l-2.2 2.2a15 15 0 0 1-6.6-6.6l2.2-2.2a1 1 0 0 0 .2-1A11.4 11.4 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1 17 17 0 0 0 17 17 1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg></span>
+      <span>Call Lanre Now</span>
+    </button>
+    <button class="hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <!-- LEFT -->
+    <div class="hero-left">
+      <span class="badge"><span class="dot"></span>Your Voice. Our Priority. Real Change.</span>
+      <h1>Talk to <span class="g">Lanre.</span></h1>
+      <div class="subhead">Speak up. Be heard. <span class="g">See real change.</span></div>
+      <p class="lead">Talk to Lanre is an AI voice agent trained on <b>Lanre Farinloye's</b> manifesto and vision for a better community. Ask anything. Share what's happening. Help build better communities.</p>
+
+      <div class="ai-card">
+        <span class="ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8L12 3z" fill="#0B6B3A"/><circle cx="18.5" cy="17.5" r="2" fill="#16A34A"/></svg>
+        </span>
+        <div>
+          <h4>AI-Powered. Manifesto-Guided.</h4>
+          <p>Our AI provides answers based on Lanre's manifesto and vision, while collecting data to understand what matters most in your community.</p>
+        </div>
+      </div>
+
+      <button class="hero-cta" id="heroCta" onclick="voiceToggle()">
+        <span class="phone"><svg viewBox="0 0 24 24" fill="#0B6B3A" id="ctaIcon"><path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6a1 1 0 0 0-1 .2l-2.2 2.2a15 15 0 0 1-6.6-6.6l2.2-2.2a1 1 0 0 0 .2-1A11.4 11.4 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1 17 17 0 0 0 17 17 1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg></span>
+        <span class="ct"><span class="t" id="ctaTitle">Call Lanre Now</span><span class="s" id="ctaSub">Speak directly with our AI voice agent</span></span>
+        <span class="wf" id="ctaWave"></span>
+      </button>
+      <div class="privacy">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 4.5-3 8.5-7 9.5-4-1-7-5-7-9.5V5l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        Private. Secure. Always Listening.
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-right">
+      <div class="halo"></div>
+      <div class="bg-wf" id="heroBgWave"></div>
+      <img class="portrait" src="assets/lanre-white.png" alt="Lanre Farinloye in traditional white attire">
+      <div class="sig">
+        <p>I'm not just here to lead. I'm here to listen. Your input shapes our decisions and drives real change.</p>
+        <div class="name">Lanre Farinloye</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ FEATURES (dark) ══ -->
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="darkpanel reveal">
+      <h2>This isn't just talk. <span class="g">It's how</span> we build <span class="g">better communities.</span></h2>
+      <p class="sub">Your voice helps us understand. Your data helps us act.</p>
+      <div class="features">
+        <div class="feat">
+          <span class="fic"><svg width="38" height="38" viewBox="0 0 40 40" fill="none"><path d="M4 24c2-8 4 6 6-2s3-12 5-2 3 10 5 0 3-8 5 2 3 6 6 4" stroke="#4ADE80" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3>Speak Freely</h3>
+          <p>Share your concerns, ideas, and suggestions in your own words.</p>
+        </div>
+        <div class="feat">
+          <span class="fic"><svg width="38" height="38" viewBox="0 0 40 40" fill="none"><path d="M6 12c0-2.2 2-4 6-4h13c4 0 6 1.8 6 4v8c0 2.2-2 4-6 4H16l-6 5v-5c-2.4-.5-4-2-4-4v-8z" stroke="#A78BFA" stroke-width="2.6" stroke-linejoin="round"/><path d="M13 14h12M13 18h7" stroke="#A78BFA" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+          <h3>Report &amp; Inform</h3>
+          <p>Tell us what's happening in your community — big or small.</p>
+        </div>
+        <div class="feat">
+          <span class="fic"><svg width="38" height="38" viewBox="0 0 40 40" fill="none"><path d="M11 5h12l7 7v23H11V5z" stroke="#FCD34D" stroke-width="2.6" stroke-linejoin="round"/><path d="M23 5v7h7M16 21h8M16 26h8M16 16h4" stroke="#FCD34D" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+          <h3>We Collect Data</h3>
+          <p>Our AI gathers and organizes your reports to spot patterns and needs.</p>
+        </div>
+        <div class="feat">
+          <span class="fic"><svg width="38" height="38" viewBox="0 0 40 40" fill="none"><path d="M6 30C12 20 18 26 22 16s8-4 12-8" stroke="#A78BFA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M27 7h7v7" stroke="#A78BFA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3>We Drive Change</h3>
+          <p>The insights collected guide decisions and real action.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<section class="section" id="stats">
+  <div class="wrap">
+    <div class="panel reveal" style="padding-top:44px;padding-bottom:44px">
+      <h2 class="h2" style="margin-bottom:34px">Many Voices. <span class="g">One Mission.</span></h2>
+      <div class="stats">
+        <div class="stat"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="15" cy="13" r="5" stroke="#0B6B3A" stroke-width="2.4"/><circle cx="27" cy="15" r="4" stroke="#0B6B3A" stroke-width="2.4"/><path d="M6 32c0-5 4-8 9-8s9 3 9 8M24 32c0-4 3-6 6-6" stroke="#0B6B3A" stroke-width="2.4" stroke-linecap="round"/></svg><div><div class="num">10,000+</div><div class="cap">Voices Heard</div></div></div>
+        <div class="stat"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 16c-2-3-7-3-8 1-1 4 5 8 8 10 3-2 9-6 8-10-1-4-6-4-8-1z" stroke="#6D5BD0" stroke-width="2.4" stroke-linejoin="round"/><path d="M6 30c2 3 6 4 8 4M34 30c-1 2-3 3-5 3" stroke="#6D5BD0" stroke-width="2.2" stroke-linecap="round"/></svg><div><div class="num">2,500+</div><div class="cap">Issues Reported</div></div></div>
+        <div class="stat"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 6l4 9 10 1-7.5 6.5L29 33l-9-5-9 5 2.5-10.5L6 16l10-1 4-9z" stroke="#D4AF37" stroke-width="2.4" stroke-linejoin="round"/></svg><div><div class="num">1,800+</div><div class="cap">Actions Taken</div></div></div>
+        <div class="stat"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="14" stroke="#0B6B3A" stroke-width="2.4"/><path d="M14 17v0M26 17v0M14 24c2 2.5 4 3.5 6 3.5s4-1 6-3.5" stroke="#0B6B3A" stroke-width="2.6" stroke-linecap="round"/></svg><div><div class="num">Stronger</div><div class="cap">Communities</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="section" id="how">
+  <div class="wrap">
+    <h2 class="h2 reveal">How It <span class="g">Works</span></h2>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><h3>Call</h3><p>Click the button and speak with our AI voice agent — anytime, day or night.</p></div>
+      <div class="step reveal"><div class="n">2</div><h3>Share</h3><p>Answer questions based on Lanre's manifesto, or tell us what's happening.</p></div>
+      <div class="step reveal"><div class="n">3</div><h3>Make Impact</h3><p>Your responses help shape solutions and improve lives.</p></div>
+    </div>
+    <p class="closing reveal">One conversation can start a movement. <a href="#" onclick="voiceToggle();return false;">Talk to Lanre today.</a></p>
+  </div>
+</section>
+
+<!-- ══ MANIFESTO ══ -->
+<section class="section" id="manifesto">
+  <div class="wrap">
+    <div class="manifesto reveal">
+      <p class="label">The Manifesto</p>
+      <h2>Practical solutions. People-centered governance. Real accountability.</h2>
+      <!-- TODO: replace with real manifesto summary once published on lanrefarinloye.com/manifesto -->
+      <p>Lanre Farinloye's vision is built on listening to the people, transparency, and evidence-based decisions — turning everyday conversations into community action.</p>
+      <div class="pills">
+        <span class="pill">Listening to the people</span>
+        <span class="pill">Accessibility &amp; transparency</span>
+        <span class="pill">Data-driven decisions</span>
+        <span class="pill">Community empowerment</span>
+        <span class="pill">Accountability</span>
+        <span class="pill">Action-oriented leadership</span>
+      </div>
+      <a class="btn-light" href="https://lanrefarinloye.com/manifesto" target="_blank" rel="noopener">
+        Read the full manifesto
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#14532D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <h2 class="h2 reveal">Questions, <span class="g">answered.</span></h2>
+    <div class="faq">
+      <!-- TODO: confirm/replace placeholder answers with office-approved copy -->
+      <div class="q"><button onclick="toggleQ(this)">Am I speaking to Lanre personally?<span class="plus">+</span></button><div class="a"><p>No. You're speaking with an AI assistant on behalf of Lanre Farinloye's office. It's trained on his published manifesto and approved messaging to answer your questions and capture your concerns 24/7.</p></div></div>
+      <div class="q"><button onclick="toggleQ(this)">Are calls recorded?<span class="plus">+</span></button><div class="a"><p>Yes. Conversations may be recorded and transcribed so the office can better understand community needs and act on them. Your information is handled responsibly, and access is restricted to authorized staff.</p></div></div>
+      <div class="q"><button onclick="toggleQ(this)">What can I talk about?<span class="plus">+</span></button><div class="a"><p>Anything that matters to you — ask about Lanre's plans and manifesto, report a local issue (roads, electricity, healthcare, security, education), share an idea, or request support.</p></div></div>
+      <div class="q"><button onclick="toggleQ(this)">Does it cost anything?<span class="plus">+</span></button><div class="a"><p>No. Talking to Lanre is free. All you need is a device with a microphone and an internet connection.</p></div></div>
+      <div class="q"><button onclick="toggleQ(this)">How is my data used?<span class="plus">+</span></button><div class="a"><p>The purpose of data collection is to understand and serve the community better. Insights from conversations help prioritize interventions and shape community initiatives — not to identify or target individuals.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="logo">
+          <span class="logo-mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 13c0-4.5 3.8-8 9-8s9 3.5 9 8c0 2.3-1 4.2-2.7 5.6L19 22l-4.2-1.7c-.9.2-1.8.3-2.8.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 10v4M10 8v8M13 9v6M16 11v2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <span class="logo-txt">Talk to<b>Lanre</b></span>
+        </div>
+        <div class="foot-links">
+          <a href="#features">About Lanre</a><a href="#manifesto">Manifesto</a><a href="#how">How It Works</a><a href="#faq">FAQ</a>
+        </div>
+      </div>
+      <div class="foot-cta">
+        <button class="btn-call" onclick="voiceToggle()" style="height:60px;font-size:18px">
+          <span class="ph"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6a1 1 0 0 0-1 .2l-2.2 2.2a15 15 0 0 1-6.6-6.6l2.2-2.2a1 1 0 0 0 .2-1A11.4 11.4 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1 17 17 0 0 0 17 17 1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg></span>
+          <span>Call Lanre Now</span>
+        </button>
+      </div>
+    </div>
+    <p class="disclaimer">
+      <b>Talk to Lanre</b> is an AI-powered constituent engagement platform operated on behalf of Lanre Farinloye's office. The voice assistant is <b>an AI speaking on behalf of the office</b> — not Lanre personally. Calls may be recorded and transcribed for service improvement and community insight. Information is collected and managed responsibly to better understand and serve the community. © 2026 Talk to Lanre. Powered by AI. Built for our community.
+    </p>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+/* ── waveform builders ── */
+(function(){
+  function build(el,bars,min,max,base){
+    if(!el)return;var h='';for(var i=0;i<bars;i++){var d=(Math.sin(i*1.3)+1)/2;var ht=min+d*(max-min);h+='<i style="height:'+ht+'%;animation-delay:'+(i*0.06)+'s"></i>';}el.innerHTML=h;el.querySelectorAll('i').forEach(function(b){if(base)b.style.height=base;});}
+  build(document.getElementById('ctaWave'),26,20,100);
+  build(document.getElementById('heroBgWave'),46,15,100);
+})();
+
+/* ── nav menu (mobile) ── */
+function toggleMenu(btn){
+  var m=document.querySelector('.menu');
+  if(!m)return;
+  var open=m.style.display==='flex';
+  m.style.cssText=open?'':'display:flex;position:absolute;top:88px;left:0;right:0;flex-direction:column;background:#fff;padding:24px 32px;gap:18px;border-bottom:1px solid var(--border);box-shadow:0 14px 30px rgba(0,0,0,.08)';
+}
+
+/* ── FAQ accordion ── */
+function toggleQ(b){var q=b.parentElement;q.classList.toggle('open');}
+
+/* ── reveal on scroll (with safe fallback) ── */
+var reveals=document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1,rootMargin:'0px 0px -8% 0px'});
+  reveals.forEach(function(el){io.observe(el);});
+}else{
+  reveals.forEach(function(el){el.classList.add('in');});
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   VOICE AGENT — ElevenLabs Conversational AI
+   ⚠️ PLACEHOLDER AGENT: this is the dirtyd restaurant agent, reused so
+   the button works in demos. It will talk about FOOD until swapped.
+   👉 To go live: create a "Talk to Lanre" agent in your ElevenLabs
+      account (system prompt + manifesto knowledge base), then paste its
+      Agent ID below. That single line is the only change needed.
+   ══════════════════════════════════════════════════════════════════ */
+var ELEVENLABS_AGENT_ID = 'agent_7201khvxxb7mex5btdn1rkm1npba'; // TODO: replace with real Lanre agent
+
+var _active=false,_conv=null;
+var cta=document.getElementById('heroCta');
+var ctaTitle=document.getElementById('ctaTitle');
+var ctaSub=document.getElementById('ctaSub');
+
+function setState(s){
+  if(!cta)return;
+  cta.classList.remove('connecting','live','speaking','error');
+  var map={
+    idle:    ['Call Lanre Now','Speak directly with our AI voice agent'],
+    connecting:['Connecting…','Setting up your secure line'],
+    live:    ['Listening…','Speak now — tap to end'],
+    speaking:['Speaking…','Lanre’s office is responding'],
+    error:   ['Connection failed','Please try again in a moment']
+  };
+  if(s!=='idle')cta.classList.add(s);
+  ctaTitle.textContent=map[s][0];
+  ctaSub.textContent=map[s][1];
+  document.querySelectorAll('.btn-call span:last-child').forEach(function(sp){
+    if(sp.closest('.ph'))return;
+    sp.textContent=(s==='idle')?'Call Lanre Now':(s==='connecting'?'Connecting…':'End Call');
+  });
+}
+
+window.voiceToggle=function(){ _active?voiceStop():voiceStart(); };
+
+function voiceStop(){
+  _active=false;
+  if(_conv){_conv.endSession().catch(function(){});_conv=null;}
+  setState('idle');
+}
+
+function voiceStart(){
+  _active=true;setState('connecting');
+  import('https://cdn.jsdelivr.net/npm/@elevenlabs/client/+esm')
+  .then(function(mod){
+    return mod.Conversation.startSession({
+      agentId:ELEVENLABS_AGENT_ID,
+      onConnect:function(){setState('live');},
+      onDisconnect:function(){if(_active)voiceStop();},
+      onError:function(msg){console.error('[Voice]',msg);_conv=null;_active=false;setState('error');setTimeout(function(){setState('idle');},3000);},
+      onModeChange:function(d){if(!_active)return;setState(d.mode==='speaking'?'speaking':'live');}
+    });
+  })
+  .then(function(conv){_conv=conv;})
+  .catch(function(err){console.error('[Voice]',err);_conv=null;_active=false;setState('error');setTimeout(function(){setState('idle');},3000);});
+}
+</script>
+</body>
+</html>
