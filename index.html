@@ -194,7 +194,12 @@ footer{background:var(--ink);color:#cbd5e1;padding:56px 0 34px;margin-top:80px}
   h1{font-size:46px;letter-spacing:-2px;padding-right:48%}
   .subhead{font-size:21px;padding-right:42%}
   .lead{font-size:15.5px;padding-right:38%;max-width:none}
-  .ai-card{max-width:none}.hero-cta{max-width:none}
+  .ai-card{max-width:none}
+  .hero-cta{max-width:none;height:76px;gap:14px;padding:0 18px}
+  .hero-cta .wf{display:none}          /* waveform was squeezing the title */
+  .hero-cta .phone{width:46px;height:46px}
+  .hero-cta .phone svg{width:22px;height:22px}
+  .hero-cta .ct .t{white-space:nowrap}
 
   /* dark features card — keep 4 across, compact */
   .darkpanel{padding:32px 16px}
@@ -212,8 +217,11 @@ footer{background:var(--ink);color:#cbd5e1;padding:56px 0 34px;margin-top:80px}
   .stat{flex-direction:column;gap:7px;text-align:center}
   .stat .num{font-size:19px}.stat .cap{font-size:11px}
 
-  .steps{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:16px}
+  .section{padding:30px 0}            /* was 60px — cut the big mobile gaps */
   .manifesto{padding:40px 24px}.manifesto h2{font-size:30px}
+  .closing{margin-top:24px}
+  footer{margin-top:44px}
   .wrap{padding:0 18px}
   .foot-top{flex-direction:column}.foot-cta{text-align:left}
 }
