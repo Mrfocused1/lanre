@@ -453,13 +453,10 @@ if('IntersectionObserver' in window){
 
 /* ══════════════════════════════════════════════════════════════════
    VOICE AGENT — ElevenLabs Conversational AI
-   ⚠️ PLACEHOLDER AGENT: this is the dirtyd restaurant agent, reused so
-   the button works in demos. It will talk about FOOD until swapped.
-   👉 To go live: create a "Talk to Lanre" agent in your ElevenLabs
-      account (system prompt + manifesto knowledge base), then paste its
-      Agent ID below. That single line is the only change needed.
+   Live "Talk to Lanre" agent — persona + manifesto configured in the
+   ElevenLabs dashboard. Swap this ID if you ever create a new agent.
    ══════════════════════════════════════════════════════════════════ */
-var ELEVENLABS_AGENT_ID = 'agent_7201khvxxb7mex5btdn1rkm1npba'; // TODO: replace with real Lanre agent
+var ELEVENLABS_AGENT_ID = 'agent_7801ktrm73gfezcbwrvgm33razsn'; // Talk to Lanre agent
 
 var _active=false,_conv=null;
 var cta=document.getElementById('heroCta');
